@@ -1,8 +1,11 @@
 ## **Retrieving Data From Multiple Tables**
+
+Many times we might need to retrieve data from multiple tables. In times like this we have JOINS for our rescue.
+
 ### Inner Joins
 Inner keyword is optional. By this 2 tables will be joined.  
 Use ON phrase to tell sql on which basis you want to join the tables.  
-Can use alias just after the table name.
+We can use alias just after the table name. or use the AS keyword for alias (It is optional)
 ```
 -- 
 SELECT order_id, o.customer_id, first_name, last_name
@@ -16,7 +19,7 @@ JOIN products p
 ON oi.product_id = p.product_id 
 ```
 Once we declare the alias then we cannot use the full name of the table.  
-table name should be used as a prefix where the column name is ambiguous (exist in both the columns)
+In the select statement, table name should be used as a prefix where the column name is ambiguous (exist in both the columns)
 
 ### Joining across Databases
 We need to prefix the table with the database that does not belong to the current database.  
@@ -48,6 +51,9 @@ JOIN customers c
 JOIN order_statuses os
 	ON o.status = os.order_status_id
 ```
+
+#### Exercise
+From sql_invoicing DB, Join payments, payment_methods and  
 
 ### Compound Join Conditions
 Till now we have been using single column to identify a row in the table.   
