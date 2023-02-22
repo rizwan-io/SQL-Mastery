@@ -1,6 +1,7 @@
 ## **Inserting, Updating and Deleting Data**
 
 ### Column Attributes
+Click on the spanner when you hover over a table. This gives you table design. 
 1. Datatype -  
     1. INT(11) - Integer of max 11 digits
     2. VARCHAR(50) - Variable character of 50. Unused space will not be used
@@ -12,11 +13,12 @@
     3. AI - Auto Increment
 
 ### Inserting a Single Row
+DEFAULT is passed while passing a key because our key has auto increment on. So MySQL is responsible for generating a value for it.
 ```
 INSERT INTO customers
 VALUES (DEFAULT, 'John', 'Smith', '1999-09-09', DEFAULT, 'address', 'city', 'CA', DEFAULT) 
 
-Order of the mentioned column does not matter
+Order of the column does not matter
 INSERT INTO customers (first_name, last_name, birth_date, address, city, state)
 VALUES ('John', 'Smith', '1999-09-09', 'address', 'city', 'CA') 
 ```
@@ -24,10 +26,13 @@ VALUES ('John', 'Smith', '1999-09-09', 'address', 'city', 'CA')
 ### Inserting Multiple Rows
 ```
 INSERT INTO shippers (name)
-VALUE ('Shippers1'),
-	  ('Shippers2'),
-      ('Shippers3')
+VALUES ('Shippers1'),
+	   ('Shippers2'),
+       ('Shippers3')
 ```
+
+#### Exercise
+Insert three rows in the product
 
 ### Inserting Hierarchical Rows
 Inserting data in multiple table  
@@ -42,7 +47,7 @@ VALUES (LAST_INSERT_ID(), '2', '3', '2.95'),
 
 ### Creating a Copy of a Table
 ```
--- Instead of writing many insert statements but, it won't mark row as Primary
+-- Instead of writing many insert statements but, MySQL will ignore the attributes such as auto increment, primary key ...
 CREATE TABLE order_items_archived AS
 SELECT * FROM order_items;
 
@@ -74,7 +79,7 @@ WHERE invoice_id = 1;
 ```
 
 ### Updating Multiple Rows
-Syntax for updating multiple rows is similar as above. Only thing is the WHERE condition needs to be more generic
+Syntax for updating multiple rows is similar as above. Only thing is the WHERE condition needs to be more generic. MySQL Workbench won't allow us to update multiple rows out of the box. To make MySQL allow you to update multiple rows. We untick the Safe update option in setting of SQL Workbench and reload the DB Connection.
 ```
 USE sql_invoicing;
 
@@ -91,7 +96,7 @@ WHERE birth_date < '1990-01-01';
 WHERE Clause is optional if we want to update all the rows of the table.
 
 ### Using Subqueries in Update Statement
-A subquery is a SELECT statement within other statement
+A subquery is a SELECT statement within other statement. We have to use IN operator because the sub query can return multiple rows.
 ```
 UPDATE orders
 SET comments = 'GOLD CUSTOMERS'
