@@ -77,8 +77,8 @@ Be aware to use WHERE clause in this case otherwise we'll get cross join. It is 
 
 ### Outer Join
 Outer keyword is optional. Outer Joins are of 2 types 
-1. Left Outer Join - see all the columns of left table even if the ON condition is false
-2. Right Outer Join - see all the columns of right table even if the ON condition is false
+1. Left Outer Join - see all the columns of left table even if they don't satisfy the ON condition
+2. Right Outer Join - see all the columns of right table even if they don't satisfy the ON condition
 ```
 SELECT p.product_id, p.name, oi.quantity
 FROM products p
@@ -136,7 +136,7 @@ USING (order_id, product_id)
 
 ### Natural Joins
 *[Not Recommended]*  
-We don't mention the common column rather SQL takes the common column itself.  
+We don't mention the column name rather SQL takes the common column itself.  
 ```
 USE sql_store;
 
@@ -184,4 +184,4 @@ SELECT
 FROM orders
 WHERE order_date < '2019-01-01';
 ```
-But the number of columns from both the queries should be same. Name of the column is dependent on the first query result.
+But the number of columns from both the queries should be same. Name of the column is based on the first query result.
