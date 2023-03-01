@@ -1,7 +1,9 @@
 ## **Writing Complex Queries**
 
 ### Sub queries
-> Sub queries are SELECT Statement within other SQL Statement.
+> Sub queries are SELECT Statement within other SQL Statement. 
+
+We can write sub queries in the WHERE, FROM as well as the SELECT Clause. Below is an example of a sub query inside a WHERE Clause.
 
 ```
 -- In sql_hr database:
@@ -17,6 +19,7 @@ WHERE salary > (
 ```
 
 ### The IN Operator
+When the sub query is returning a list of values at that time we should use IN Operator.
 ```
 -- Find the clients without invoices
 
@@ -30,13 +33,14 @@ WHERE client_id NOT IN (
 ```
 
 ### Sub queries VS Joins
-We can write sub queries as join and vice-versa. The above query can be written as 
+Quite often, We can write sub queries as join and vice-versa. The above query can be written as 
 ```
 SELECT * 
 FROM clients
 LEFT JOIN invoices USING (client_id)
 WHERE invoice_id IS NULL;
 ```
+When there are many ways to write a query and there is not much difference in the performance, then we should use queries that are more readable.
 
 ### The ALL Keyword
 ```
@@ -64,7 +68,7 @@ WHERE client_id IN (
 	GROUP BY client_id
 	HAVING COUNT(*) >= 2
 );
-
+-- Instead of IN we can also use = ANY
 SELECT *
 FROM clients
 WHERE client_id = ANY (
@@ -76,7 +80,7 @@ WHERE client_id = ANY (
 ```
 
 ### Correlated Sub queries 
-The inner sub query is dependent on the outer query
+The inner sub query is dependent on the outer query. For every outer query, Inner query is ran. So, We can use outer queries attribute inside inner query.
 ```
 -- Get the invoices that are larger than the 
 -- 		client's average invoice amount
@@ -130,13 +134,13 @@ GROUP BY client_id;
 ```
 
 ### Sub queries in the FROM Clause
-We can also write sub queries in FROM clause but reserve it only for the simple queries
+We can also write sub queries in FROM clause but reserve it only for the simple queries. Whenever we are using sub queries in the from clause we should give an alias. It is mandatory to give and alias.
 ```
 USE sql_invoicing;
 
 SELECT * 
 FROM (
-	SELECT 
+	SELECT `
 		client_id,
 		name,
 		(SELECT SUM(invoice_total)
@@ -149,3 +153,4 @@ FROM (
 ) AS sales_summary
 WHERE total_sales IS NOT NULL
 ```
+The above approach is not a good way to solve this problem. The other approach would be is to use Views. 

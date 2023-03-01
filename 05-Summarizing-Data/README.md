@@ -48,7 +48,7 @@ WHERE invoice_date BETWEEN '2019-01-01' AND '2019-12-31';
 
 ### The GROUP BY Clause
 **Order of the clauses matters**
-Grouping based on a single column
+Grouping based on a single column. We cannot use GROUP BY on the alias. We need to provide the entire column name.
 ```
 SELECT 
 	client_id,
@@ -100,7 +100,7 @@ HAVING spent > 100;
 
 ### The ROLLUP Operator
 Only available in MySQL. It is not a part of Standard SQL. ROLLUP operator calculates the summary for each group. It only applies to column that aggregate value.
-When you group by multiple column you see summary value of each group as well as the entire result set
+When you group by multiple column you see summary value of each group as well as the entire result set`
 ```
 SELECT pm.name AS payment_method, SUM(amount) AS total
 FROM payments p
